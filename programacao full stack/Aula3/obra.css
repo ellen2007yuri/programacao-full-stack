@@ -1,0 +1,135 @@
+.sol{
+display: flex;
+justify-content: space-between;
+background-color: bisque;
+border-style: solid 2px darkblue;
+align-items: center;
+
+}
+
+.par{
+    display: flex;
+    color: darkgreen;
+
+}
+
+.casa{
+   display: flex;
+   justify-content: space-evenly;
+   background-color: lightblue;
+
+
+}
+
+body{
+
+    background-color: lightgray;
+
+}
+
+.carro{
+
+    display: flex;
+    justify-content: center;
+    color: black 50px;
+
+}
+
+
+.lar{
+
+   display:flex;
+   color: indigo;
+   font-size:20pt;
+   text-align: center;
+   font-family: sans-serif;
+
+}
+
+.agua{
+
+    color: black 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.cor{
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+}
+
+.suco{
+
+  color: black;
+  display: flex;
+  justify-content: center;
+
+}
+
+.pizza{
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pe{
+   display: flex;
+   justify-content: center;
+
+}
+
+.praia{
+
+     display: flex;
+     color: black 50px;
+     justify-content: center;
+
+}
+
+
+.tabela{
+
+    display: flex;
+    justify-content: center;
+    border-color: red;
+    border-style: dashed;
+}
+
+.teste{
+    border:solid 1px red;
+}
+
+.coluna{
+
+    color: red;
+    border: solid 1px red;
+}
+
+table tr,th{
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    
+}
+
+
+
+.bola{
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    background-color: yellow;
+}
+.sala{
+   display: flex;
+   justify-content: space-between;
+   font-family: Comic Sans MS;
+   font-size: 15pt;
+   background-color: bisque;
+   align-items: center;
+
+
+}
