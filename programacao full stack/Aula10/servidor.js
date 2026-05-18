@@ -19,7 +19,7 @@ const uri = `mongodb+srv://ellenyurisuzuki2010_db_user:aSFAZbCNOK6WzvqV@bd.yywur
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 
-var dbo = client.db("Banco-de-dados");
+var dbo = client.db("BD");
 
 var usuarios = dbo.collection("usuarios");
 var carros = dbo.collection("carros");
