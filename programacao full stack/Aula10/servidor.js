@@ -14,7 +14,7 @@ app.set('views', './views');
 
 const MongoClient = mongodb.MongoClient;
 
-const uri = `mongodb+srv://yumisuzuki3123_db_user:V8ZpA2Pb3Ok5A0tL@banco-de-dados.vjellw1.mongodb.net/?appName=Banco-de-dados`;
+const uri = `mongodb+srv://ellenyurisuzuki2010_db_user:aSFAZbCNOK6WzvqV@bd.yywurun.mongodb.net/?appName=BD`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
