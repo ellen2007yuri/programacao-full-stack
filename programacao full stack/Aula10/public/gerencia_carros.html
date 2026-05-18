@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    
+  <h1>Gerenciamento de carros</h1>
+        <h1>Cadastrar</h1>
+        <form action="/carro_cadastro" method="post">
+           <p>Marca:</p>
+            <input type="text" name="marca">
+            
+            <p>Modelo:</p>
+            <input type="text" name="modelo">
+
+            <p>Ano:</p>
+            <input type="text" name="ano">
+
+            <p>Qtd disponível:</p>
+            <input type="text" name="disponivel">
+            <br><br>
+
+            <input type="submit" value="Cadastrar">
+        </form>
+        <br>
+        <h1>Remover</h1>
+        <form action="/carro_remover" method="post">
+            <p>Marca:</p>
+            <input type="text" name="marca">
+            
+            <p>Modelo:</p>
+            <input type="text" name="modelo">
+
+            <p>Ano:</p>
+            <input type="text" name="ano">
+
+            <input type="submit" value="Remover">
+        </form>
+        <br>
+        <h1>Atualizar</h1> 
+        <form action="/carro_atualizar" method="post">
+            <p>Marca:</p>
+            <input type="text" name="marca">
+            
+            <p>Modelo:</p>
+            <input type="text" name="modelo">
+
+            <p>Ano:</p>
+            <input type="text" name="ano">
+
+            <p>Qtd disponível:</p>
+            <input type="text" name="disponivel">
+            <br><br>
+            
+            <input type="submit" value="atualizar">
+        </form>
+        <br>
+        <h1>Vender</h1>
+        <form action="/carro_vender" method="post">
+            <p>Marca:</p>
+            <input type="text" name="marca">
+            
+            <p>Modelo:</p>
+            <input type="text" name="modelo">
+
+            <p>Ano:</p>
+            <input type="text" name="ano">
+
+            <input type="submit" value="vender">
+        </form>
+        <br>
+
+</body>
+</html>

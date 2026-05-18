@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <h1>Carro</h1>
+
+    <a href="/login">
+        <button>Login</button>
+    </a>
+    <a href="/cadastrar">
+        <button>Cadastro</button>
+    </a>
+    <a href="/gerenciar_carros">
+        <button>Gerenciar Carros</button>
+    </a>
+
+    <br><br>
+
+    <% for (var i = 0; i < carros.length; i++) { %>
+
+        <div class="post">
+            <h2><%= carros[i].marca %></h2>
+            <h3><%= carros[i].modelo %></h3>
+            <p><%= carros[i].ano %></p>
+            <p><%= carros[i].disponivel %></p>
+        </div>
+
+    <% } %>
+
+    <br>
+
+    <a href="/">Voltar para projetos</a>
+
+</body>
+</html>
