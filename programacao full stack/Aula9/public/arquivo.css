@@ -1,6 +1,7 @@
 body{
-    background-color: lightcyan;
+    background-color:lightblue;
 }
+
 .tabela-fofa {
     border-collapse: separate; /* Permite bordas arredondadas na tabela */
     border-spacing: 0;
@@ -13,7 +14,7 @@ body{
   }
 
   .tabela-fofa th {
-    background-color: #ffb6c1; /* Rosa pastel no cabeçalho */
+    background-color: #f0a0e4; /* Rosa pastel no cabeçalho */
     color: white;
     padding: 15px;
   }
@@ -32,12 +33,13 @@ body{
 
   /* Efeito ao passar o mouse */
   .tabela-fofa tr:hover {
-    background-color: #ffe4b5;
+    background-color: #b5eeff;
     transition: 0.3s;
   }
 
 #mar{
-    display: flex;
+    display:flex;
     justify-content: center;
-    
-}  
+    border-radius: 100px;
+    border-color: #ffb6c1;
+}
