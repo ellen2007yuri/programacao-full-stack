@@ -15,15 +15,15 @@ var usuario_cadastrado = "";
 var senha_cadastrada = "";
 
 app.get('/', function(requisicao, resposta) {
-    resposta.sendFile(path.join(__dirname, '..', 'Aula2', 'project.html'));
+    resposta.sendFile(path.join(__dirname, '..', 'Aula2', 'projetos.html'));
 });
 
 app.get('/cadastra', function(requisicao, resposta) {
-    resposta.sendFile(path.join(__dirname, 'public', 'Cadastro.html'));
+    resposta.sendFile(path.join(__dirname, 'public', 'cadastro.html'));
 });
 
 app.get('/login', function(requisicao, resposta) {
-    resposta.sendFile(path.join(__dirname, 'public', 'Login.html'));
+    resposta.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 app.post('/cadastrar', function(requisicao, resposta) {
