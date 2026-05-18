@@ -40,11 +40,11 @@ app.post('/entrar', function(requisicao, resposta) {
     var senha = requisicao.body.senha;
 
     if (usuario == usuario_cadastrado && senha == senha_cadastrada) {
-        resposta.render('resposta', {
+        resposta.render('resposta_cadastro', {
             mensagem: 'Login realizado com sucesso!'
         });
     } else {
-        resposta.render('resposta', {
+        resposta.render('resposta_cadastro', {
             mensagem: 'Usuário ou senha incorretos!'
         });
     }
