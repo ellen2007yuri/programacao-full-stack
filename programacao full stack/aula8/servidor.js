@@ -15,7 +15,7 @@ var usuario_cadastrado = "";
 var senha_cadastrada = "";
 
 app.get('/', function(requisicao, resposta) {
-    resposta.sendFile(path.join(__dirname, '..', 'LAB2', 'project.html'));
+    resposta.sendFile(path.join(__dirname, '..', 'Aula2', 'project.html'));
 });
 
 app.get('/cadastra', function(requisicao, resposta) {
