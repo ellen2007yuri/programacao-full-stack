@@ -1,0 +1,43 @@
+body{
+    background-color: lightcyan;
+}
+.tabela-fofa {
+    border-collapse: separate; /* Permite bordas arredondadas na tabela */
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 15px; /* Deixa as pontas redondinhas */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra suave */
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fonte amigável */
+    background-color: #fffaf0; /* Fundo creme suave */
+  }
+
+  .tabela-fofa th {
+    background-color: #ffb6c1; /* Rosa pastel no cabeçalho */
+    color: white;
+    padding: 15px;
+  }
+
+  .tabela-fofa td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ffe4e1;
+    color: #555;
+  }
+
+  /* Efeito zebrado fofo */
+  .tabela-fofa tr:nth-child(even) {
+    background-color: #fff0f5;
+  }
+
+  /* Efeito ao passar o mouse */
+  .tabela-fofa tr:hover {
+    background-color: #ffe4b5;
+    transition: 0.3s;
+  }
+
+#mar{
+    display: flex;
+    justify-content: center;
+    
+}  
