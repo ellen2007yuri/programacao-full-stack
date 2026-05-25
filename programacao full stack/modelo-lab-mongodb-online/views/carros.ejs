@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Carros Disponíveis</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Carros Disponíveis</h1>
+
+        <% if (carros.length === 0) { %>
+            <p>Nenhum carro cadastrado ainda.</p>
+        <% } %>
+
+        <% carros.forEach(carro => { %>
+            <div class="card">
+                <h2><%= carro.marca %> <%= carro.modelo %></h2>
+                <p>Ano: <%= carro.ano %></p>
+                <p>Quantidade disponível: <%= carro.qtde_disponivel %></p>
+
+                <% if (carro.qtde_disponivel == 0) { %>
+                    <p class="esgotado">Esgotado</p>
+                <% } else { %>
+                    <form action="/vender-carro/<%= carro._id %>" method="POST">
+                        <button type="submit">Vender</button>
+                    </form>
+                <% } %>
+            </div>
+        <% }) %>
+
+        <a class="botao" href="/gerenciar-carros">Gerenciar Carros</a>
+        <a class="botao" href="/projetos">Voltar</a>
+    </div>
+</body>
+</html>
