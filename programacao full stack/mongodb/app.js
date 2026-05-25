@@ -43,6 +43,8 @@ const nomeBanco = "mongodb";
 
 let client;
 let db;
+let usuarios;
+let carros;
 
 // conecta no MongoDB Atlas
 async function conectarBanco() {
@@ -51,7 +53,8 @@ async function conectarBanco() {
         await client.connect();
 
         db = client.db(nomeBanco);
-
+        usuarios = db.collection("Usuarios");
+        carros = db.collection("Carros");
         console.log("Banco online conectado com sucesso");
     } catch (erro) {
         console.log("Erro ao conectar no banco:", erro);
@@ -91,21 +94,22 @@ app.get("/cadastro", (req, res) => {
 });
 
 // cadastra usuário no banco
-app.post("/cadastro", async (req, res) => {
-    try {
-        const { nome, login, senha } = req.body;
+app.post("/cadastro", (req, res) => {
+    const { nome, login, senha } = req.body;
 
-        await db.collection("Usuarios").insertOne({
-            nome: nome,
-            login: login,
-            senha: senha
-        });
+    usuarios.insertOne({
+        nome: nome,
+        login: login,
+        senha: senha
+    }, function(err){
+        if(err){
+            console.log("Erro ao cadastrar usuário:", erro);
+            res.send("Erro ao cadastrar usuário");
+        } else{
+            res.redirect("/login");
+        }    
+    });
 
-        res.redirect("/login");
-    } catch (erro) {
-        console.log("Erro ao cadastrar usuário:", erro);
-        res.send("Erro ao cadastrar usuário");
-    }
 });
 
 // abre página de login
@@ -114,24 +118,24 @@ app.get("/login", (req, res) => {
 });
 
 // verifica login no banco
-app.post("/login", async (req, res) => {
-    try {
-        const { login, senha } = req.body;
+app.post("/login", (req, res) => {
+    const { login, senha } = req.body;
 
-        const usuario = await db.collection("Usuarios").findOne({
-            login: login,
-            senha: senha
-        });
-
-        if (usuario) {
-            res.redirect("/carros");
-        } else {
-            res.render("login", { erro: "Login ou senha inválidos" });
+    usuarios.findOne({
+        login: login,
+        senha: senha
+    }, function(err, usuario){
+        if(err){
+            console.log("Erro ao fazer login:", err);
+            res.send("Erro ao fazer login");
+        } else{
+            if (usuario) {
+                res.redirect("/carros");
+            } else {
+                res.render("login", { erro: "Login ou senha inválidos" });
+            }
         }
-    } catch (erro) {
-        console.log("Erro ao fazer login:", erro);
-        res.send("Erro ao fazer login");
-    }
+    });
 });
 
 // ============================================================
@@ -139,27 +143,27 @@ app.post("/login", async (req, res) => {
 // ============================================================
 
 // lista carros disponíveis
-app.get("/carros", async (req, res) => {
-    try {
-        const carros = await db.collection("Carros").find().toArray();
-
-        res.render("carros", { carros: carros });
-    } catch (erro) {
-        console.log("Erro ao listar carros:", erro);
-        res.send("Erro ao listar carros");
-    }
+app.get("/carros", (req, res) => {
+    carros.find().toArray(function(err,lista){
+        if(err){
+            console.log("Erro ao listar carros:", err);
+            res.send("Erro ao listar carros");
+        }else {
+            res.render("carros", { carros: lista });
+        }
+    });
 });
 
 // página de gerência dos carros
-app.get("/gerenciar-carros", async (req, res) => {
-    try {
-        const carros = await db.collection("Carros").find().toArray();
-
-        res.render("gerenciar-carros", { carros: carros });
-    } catch (erro) {
-        console.log("Erro ao carregar gerência:", erro);
-        res.send("Erro ao carregar gerência dos carros");
-    }
+app.get("/gerenciar-carros", (req, res) => {
+    carros.find().toArray(function(err,lista){
+        if(err){
+            console.log("Erro ao carregar gerência:", err);
+            res.send("Erro ao carregar gerência dos carros");
+        }else{
+            res.render("gerenciar-carros", { carros: lista });        
+        }
+    });
 });
 
 // abre formulário de cadastro de carro
@@ -168,102 +172,113 @@ app.get("/cadastrar-carro", (req, res) => {
 });
 
 // cadastra carro no banco
-app.post("/cadastrar-carro", async (req, res) => {
-    try {
-        const { marca, modelo, ano, qtde_disponivel } = req.body;
+app.post("/cadastrar-carro", (req, res) => {
+    const { marca, modelo, ano, qtde_disponivel } = req.body;
 
-        await db.collection("Carros").insertOne({
-            marca: marca,
-            modelo: modelo,
-            ano: Number(ano),
-            qtde_disponivel: Number(qtde_disponivel)
-        });
+    carros.insertOne({
+        marca: marca,
+        modelo: modelo,
+        ano: Number(ano),
+        qtde_disponivel: Number(qtde_disponivel)
+    },function(err){
+        if(err){
+            console.log("Erro ao cadastrar carro:", err);
+            res.send("Erro ao cadastrar carro");
 
-        res.redirect("/gerenciar-carros");
-    } catch (erro) {
-        console.log("Erro ao cadastrar carro:", erro);
-        res.send("Erro ao cadastrar carro");
-    }
+        } else{
+            res.redirect("/gerenciar-carros");
+        }
+    });
 });
 
 // abre formulário de edição do carro
-app.get("/editar-carro/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
+app.get("/editar-carro/:id", (req, res) => {
+    const id = req.params.id;
 
-        const carro = await db.collection("Carros").findOne({
-            _id: new ObjectId(id)
-        });
-
-        res.render("editar-carro", { carro: carro });
-    } catch (erro) {
-        console.log("Erro ao abrir edição:", erro);
-        res.send("Erro ao abrir edição do carro");
-    }
+    carros.findOne({
+        _id: new ObjectId(id)
+    }, function(err,carro){
+        if(err){
+            console.log("Erro ao abrir edição:", err);
+            res.send("Erro ao abrir edição do carro");
+        } else{
+            res.render("editar-carro", { carro: carro });
+        }
+    });
 });
 
 // atualiza carro
-app.post("/editar-carro/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const { marca, modelo, ano, qtde_disponivel } = req.body;
+app.post("/editar-carro/:id", (req, res) => {
+    const id = req.params.id;
+    const { marca, modelo, ano, qtde_disponivel } = req.body;
 
-        await db.collection("Carros").updateOne(
-            { _id: new ObjectId(id) },
-            {
-                $set: {
-                    marca: marca,
-                    modelo: modelo,
-                    ano: Number(ano),
-                    qtde_disponivel: Number(qtde_disponivel)
-                }
+    carros.updateOne(
+        { _id: new ObjectId(id) },
+        {
+            $set: {
+                marca: marca,
+                modelo: modelo,
+                ano: Number(ano),
+                qtde_disponivel: Number(qtde_disponivel)
             }
-        );
+        },function(err){
+            if(err){
+                console.log("Erro ao atualizar carro:", err);
+                res.send("Erro ao atualizar carro");
+            } else{
+                res.redirect("/gerenciar-carros");
+            }
+        }
+    );
 
-        res.redirect("/gerenciar-carros");
-    } catch (erro) {
-        console.log("Erro ao atualizar carro:", erro);
-        res.send("Erro ao atualizar carro");
-    }
 });
 
 // remove carro
-app.post("/remover-carro/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
+app.post("/remover-carro/:id", (req, res) => {
+    const id = req.params.id;
 
-        await db.collection("Carros").deleteOne({
-            _id: new ObjectId(id)
-        });
-
-        res.redirect("/gerenciar-carros");
-    } catch (erro) {
-        console.log("Erro ao remover carro:", erro);
-        res.send("Erro ao remover carro");
-    }
+    carros.deleteOne({
+        _id: new ObjectId(id)
+    }, function(err){
+        if(err){
+            console.log("Erro ao remover carro:", err);
+            res.send("Erro ao remover carro");
+        } else{
+            res.redirect("/gerenciar-carros");
+        }
+    });
 });
 
 // vende carro diminuindo a quantidade em 1
-app.post("/vender-carro/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
+app.post("/vender-carro/:id", (req, res) => {
+    const id = req.params.id;
 
-        const carro = await db.collection("Carros").findOne({
-            _id: new ObjectId(id)
-        });
-
-        if (carro && carro.qtde_disponivel > 0) {
-            await db.collection("Carros").updateOne(
-                { _id: new ObjectId(id) },
-                { $inc: { qtde_disponivel: -1 } }
-            );
+    carros.findOne({
+        _id: new ObjectId(id)
+    }, function(err,carro){
+        console.log("alou");
+        if(err){
+            console.log("erro")
+            console.log("Erro ao vender carro:", err);
+            res.send("Erro ao vender carro");
+        }else{
+            console.log("nao erro", carro);
+            if (carro && carro.qtde_disponivel > 0) {
+                carros.updateOne(
+                    { _id: new ObjectId(id) },
+                    { $inc: { qtde_disponivel: -1 } },
+                    function(err){
+                        if(err){
+                            console.log("Erro ao vender carro:", err);
+                            res.send("Erro ao vender carro");
+                        } else{
+                            res.redirect("/carros");
+                        }
+                    }
+                );
+            }else res.redirect("/carros");
         }
-
-        res.redirect("/carros");
-    } catch (erro) {
-        console.log("Erro ao vender carro:", erro);
-        res.send("Erro ao vender carro");
-    }
+    });
 });
 
 // ============================================================
